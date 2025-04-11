@@ -1,12 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { BlogContext } from './context/BlogContext'; // Import the context
+import BlogProvider from './context/BlogContext';
+import Home from './pages/Home';
 
 function App() {
-  const { blogs, addBlog, updateBlog, deleteBlog } = useContext(BlogContext); // Access context here
 
   return (
     <div>
-      
+      <BlogProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      </BlogProvider>
     </div>
   )
 }
