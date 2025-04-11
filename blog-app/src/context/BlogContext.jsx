@@ -1,5 +1,5 @@
-// context/BlogContext.js
 import React, { createContext, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export const BlogContext = createContext();
 
@@ -7,8 +7,8 @@ const BlogProvider = ({ children }) => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    const storedBlogs = JSON.parse(localStorage.getItem('blogs')) || [];
-    setBlogs(storedBlogs);
+    const data = JSON.parse(localStorage.getItem('blogs')) || [];
+    setBlogs(data);
   }, []);
 
   useEffect(() => {
@@ -16,21 +16,34 @@ const BlogProvider = ({ children }) => {
   }, [blogs]);
 
   const addBlog = (blog) => {
+    blog.id = uuidv4();
+    blog.reviews = [];
+    blog.rating = 0;
     setBlogs([...blogs, blog]);
   };
 
-  const updateBlog = (updatedBlog) => {
-    const updatedList = blogs.map((b) => (b.id === updatedBlog.id ? updatedBlog : b));
-    setBlogs(updatedList);
+  const updateBlog = (updated) => {
+    setBlogs(blogs.map((b) => (b.id === updated.id ? updated : b)));
   };
 
   const deleteBlog = (id) => {
-    const filtered = blogs.filter((b) => b.id !== id);
-    setBlogs(filtered);
+    setBlogs(blogs.filter((b) => b.id !== id));
+  };
+
+  const addReview = (id, review) => {
+    const updated = blogs.map((b) => {
+      if (b.id === id) {
+        const newReviews = [...b.reviews, review];
+        const avgRating = newReviews.reduce((acc, r) => acc + r.rating, 0) / newReviews.length;
+        return { ...b, reviews: newReviews, rating: avgRating.toFixed(1) };
+      }
+      return b;
+    });
+    setBlogs(updated);
   };
 
   return (
-    <BlogContext.Provider value={{ blogs, addBlog, updateBlog, deleteBlog }}>
+    <BlogContext.Provider value={{ blogs, addBlog, updateBlog, deleteBlog, addReview }}>
       {children}
     </BlogContext.Provider>
   );
