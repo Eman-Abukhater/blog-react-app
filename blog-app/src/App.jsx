@@ -18,7 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/add" element={<AddBlog />} />
             <Route path="/edit/:id" element={<EditBlog />} />
-            <Route path="/view/:id" element={<ViewBlog />} />{" "}
+            <Route path="/view/:id" element={<ViewBlog />} />
           </Routes>
         </Router>
       </BlogProvider>

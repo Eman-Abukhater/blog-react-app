@@ -1,24 +1,21 @@
-import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { BlogContext } from '../context/BlogContext';
 
-function ViewBlog() {
+const ViewBlog = () => {
   const { id } = useParams();
   const { blogs, deleteBlog, addReview } = useContext(BlogContext);
-  const blog = blogs.find((b) => b.id === id);
-  const [review, setReview] = useState({
-    comment: "",
-    rating: "",
-  });
+  const blog = blogs.find((b) => String(b.id) === String(id)); // Make sure types match
+  const [review, setReview] = useState({ rating: '', comment: '' });
 
-  if (!blog) return <p>Blog not found...</p>;
+  if (!blog) return <p>Blog not found.</p>; // This prevents the crash
+
   const handleReview = (e) => {
     e.preventDefault();
     addReview(id, { ...review, rating: Number(review.rating) });
     setReview({ rating: '', comment: '' });
+  };
 
-
-
-  }
   return (
     <div>
       <h2>{blog.title}</h2>
@@ -55,6 +52,6 @@ function ViewBlog() {
       <button onClick={() => deleteBlog(id)}>Delete Blog</button>
     </div>
   );
-}
+};
 
 export default ViewBlog;

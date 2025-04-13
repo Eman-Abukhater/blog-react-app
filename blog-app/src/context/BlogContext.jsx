@@ -4,12 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 export const BlogContext = createContext();
 
 const BlogProvider = ({ children }) => {
-  const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('blogs')) || [];
-    setBlogs(data);
-  }, []);
+  const [blogs, setBlogs] = useState(() => {
+    const data = localStorage.getItem('blogs');
+    return data ? JSON.parse(data) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('blogs', JSON.stringify(blogs));
