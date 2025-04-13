@@ -1,7 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { BlogContext } from "./context/BlogContext"; // Import the context
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import BlogProvider from "./context/BlogContext";
 import Home from "./pages/Home";
+import AddBlog from "./pages/AddBlog";
+import EditBlog from "./pages/EditBlog";
+import ViewBlog from "./pages/ViewBlog";
 
 function App() {
   return (
