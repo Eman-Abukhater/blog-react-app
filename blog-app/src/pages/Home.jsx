@@ -13,7 +13,7 @@ const Home = () => {
   );
 
   return (
-    <div>
+    <div className='home-container' >
       <h1>All Blogs</h1>
       <input placeholder="Search by title or tag" onChange={(e) => setSearch(e.target.value)} />
       {filtered.length ? (

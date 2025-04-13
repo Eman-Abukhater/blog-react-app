@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AddBlog from "./pages/AddBlog";
 import EditBlog from "./pages/EditBlog";
 import ViewBlog from "./pages/ViewBlog";
+import './App.css';
 
 function App() {
   return (

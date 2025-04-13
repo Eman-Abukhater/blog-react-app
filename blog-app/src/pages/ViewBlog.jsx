@@ -17,7 +17,7 @@ const ViewBlog = () => {
   };
 
   return (
-    <div>
+    <div className='view-container'>
       <h2>{blog.title}</h2>
       <p>{blog.description}</p>
       <p>By: {blog.author}</p>
